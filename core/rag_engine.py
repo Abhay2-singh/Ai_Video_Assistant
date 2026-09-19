@@ -3,11 +3,12 @@ from langchain_mistralai import ChatMistralAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda
+from tenacity import retry, wait_exponential, stop_after_attempt
 from core.vector_store import build_vector_store, load_vector_store, get_retriever
 
 def get_llm():
     return ChatMistralAI(
-        model="mistral-small-latest",
+        model=os.getenv("MISTRAL_MODEL", "open-mistral-nemo"),
         mistral_api_key=os.getenv("MISTRAL_API_KEY"),
         temperature=0.3,
     )
@@ -90,6 +91,11 @@ Context from meeting transcript:
     return rag_chain
 
 
+@retry(
+    wait=wait_exponential(multiplier=2, min=2, max=30),
+    stop=stop_after_attempt(5),
+    reraise=True
+)
 def ask_question(rag_chain, question:str) -> str:
     print(f"Question : {question}")
     answer = rag_chain.invoke(question)
