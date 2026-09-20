@@ -20,14 +20,18 @@ langchain>=0.2.0
 langchain-core>=0.2.0
 langchain-community>=0.2.0
 langchain-mistralai>=0.1.0        # LangChain wrapper for Mistral API
+langchain-text-splitters>=0.2.0   # Text chunking
 mistralai>=0.4.0                  # Official Mistral Python client
+tenacity>=8.2.0                   # Retries with exponential backoff
 
 # ── RAG Pipeline ──────────────────────────────────────────────────────────────
 chromadb>=0.5.0                   # Local vector store
+langchain-chroma>=0.1.4           # LangChain Chroma integration
 sentence-transformers>=3.0.0      # HuggingFace embedding models
 langchain-huggingface>=0.0.3      # LangChain ↔ HuggingFace embeddings bridge
 huggingface-hub>=0.23.0           # Model downloading from HuggingFace Hub
 tiktoken>=0.7.0                   # Token counting for text splitting
+
 
 # ── Streamlit UI ──────────────────────────────────────────────────────────────
 streamlit>=1.35.0
