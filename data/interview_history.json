@@ -1,0 +1,95 @@
+[
+  {
+    "video_title": "Django ORM Masterclass",
+    "video_id": "2671dd2b",
+    "history": [
+      {
+        "question": "In the context of Django ORM, you’ve seen that QuerySets are lazy. However, when *exactly* does Django execute the database query for a QuerySet operation like `Post.objects.filter(published=True)`? What are the three primary scenarios where this lazy evaluation is forced to execute, and how would you debug a case where a QuerySet appears to behave unexpectedly due to this lazy nature?",
+        "concept_name": "Django ORM Basics",
+        "difficulty": "Intermediate",
+        "user_answer": "The three primary scenarios where lazy evaluation is resolved: (1) when iterating over the QuerySet (e.g., `for post in filtered_posts:`), (2) when calling methods like `.count()`, `.first()`, or `.exists()`, and (3) when explicitly calling `.query` or `.iterator()` to force execution. Debugging lazy evaluation issues involves checking for unintended iteration (e.g., passing a QuerySet to a function that expects an iterable) or missing explicit execution (e.g., forgetting to call `.first()` before accessing attributes). Tools like Django’s `debug_toolbar` or logging database queries can help identify where queries are (or aren’t) being executed. Understanding that lazy evaluation is a performance optimization (e.g., avoiding unnecessary database hits for complex filters) but requires explicit control to ensure queries execute when intended. In Django ORM, models map directly to database tables, allowing developers to manipulate database records using clean Python syntax instead of raw SQL queries.",
+        "evaluation": {
+          "score": 8,
+          "rating": "Strong",
+          "correct_points": [
+            "Accurately listed the three primary scenarios where lazy evaluation is resolved: iteration, methods like `.count()`, `.first()`, or `.exists()`, and explicit execution via `.query` or `.iterator()`",
+            "Correctly identified debugging approaches (e.g., checking for unintended iteration, missing explicit execution, and using tools like `debug_toolbar` or logging)",
+            "Explained the purpose of lazy evaluation as a performance optimization (avoiding unnecessary database hits)",
+            "Mentioned the core Django ORM concept of mapping Python models to database tables (though this was tangential to the question, it was technically correct)"
+          ],
+          "missing_points": [
+            "Did not explicitly mention that **accessing QuerySet attributes** (e.g., `filtered_posts[0]`) also triggers execution—this is a common pitfall in lazy evaluation",
+            "No mention of **Django’s `all()` method**, which forces execution (though this is less critical than the above)"
+          ],
+          "misconceptions": [],
+          "explanation_quality": "The answer was clear, concise, and well-structured. The candidate demonstrated strong technical understanding and effectively connected the dots between lazy evaluation, debugging, and performance implications. The tangential mention of model-table mapping was minor and did not detract from the core response.",
+          "feedback_summary": "This is a highly competent answer that covers the core scenarios and debugging strategies for Django QuerySet lazy evaluation. To elevate it further, you could briefly clarify that **direct attribute access (e.g., `qs[0]`)** also triggers execution, as this is a frequent source of confusion. The answer would then be near-perfect. Overall, excellent grasp of the topic—consider increasing difficulty for deeper exploration (e.g., edge cases like nested QuerySets or custom managers).",
+          "recommended_difficulty_action": "increase",
+          "weak_concept_identified": null
+        }
+      },
+      {
+        "question": "Advanced QuerySet question",
+        "concept_name": "Django ORM Basics",
+        "difficulty": "Advanced",
+        "user_answer": "ORM is just something for databases. I don't really know how it works or what lazy means.",
+        "evaluation": {
+          "score": 1,
+          "rating": "Weak",
+          "correct_points": [],
+          "missing_points": [
+            "Failed to address the core concept of Django ORM and QuerySets.",
+            "Did not explain what lazy evaluation means or when queries execute.",
+            "Omitted the three primary scenarios where lazy evaluation is resolved (iteration, methods like `.count()`, or explicit execution).",
+            "Did not discuss debugging techniques for lazy evaluation issues.",
+            "Did not acknowledge the performance optimization aspect of lazy evaluation."
+          ],
+          "misconceptions": [
+            "Incorrectly dismissed Django ORM as 'just something for databases' without understanding its purpose or mechanics.",
+            "Misunderstood the significance of lazy evaluation by claiming ignorance ('I don't really know how it works').",
+            "Failed to recognize that QuerySets are Python objects interacting with databases, not raw SQL."
+          ],
+          "explanation_quality": "The response is entirely vague, dismissive, and lacks any technical depth or engagement with the topic. It does not demonstrate understanding or curiosity about the core concepts.",
+          "feedback_summary": "The candidate’s answer reveals a fundamental lack of comprehension regarding Django ORM and QuerySets. This response does not engage with the question at all and instead shows avoidance or ignorance of the topic. To proceed, the candidate must demonstrate basic familiarity with ORMs, lazy evaluation, and Django’s QuerySet behavior. Focus on clarifying core concepts like model-table mapping, QuerySet execution triggers, and debugging techniques.",
+          "recommended_difficulty_action": "decrease",
+          "weak_concept_identified": "Fundamental Django ORM and QuerySet mechanics (including lazy evaluation, model-table mapping, and QuerySet execution triggers)"
+        }
+      }
+    ],
+    "report": {
+      "overall_score": 4.5,
+      "concept_performance": {
+        "Django ORM Basics": {
+          "score": 4.5,
+          "attempts": 2,
+          "status": "Needs Improvement"
+        }
+      },
+      "strong_concepts": [],
+      "weak_concepts": [
+        "Django ORM Basics"
+      ],
+      "missing_concepts": [
+        "Lazy Evaluation in Django QuerySets",
+        "select_related vs prefetch_related",
+        "Database Indexing in Django",
+        "Django Migrations",
+        "Django ORM Basics (omitted key details)"
+      ],
+      "misconceptions": [
+        "Incorrectly dismissed Django ORM as 'just something for databases' without understanding its purpose or mechanics.",
+        "Misunderstood the significance of lazy evaluation by claiming ignorance ('I don't really know how it works').",
+        "Failed to recognize that QuerySets are Python objects interacting with databases, not raw SQL."
+      ],
+      "recommended_topics": [
+        {
+          "topic": "Django ORM Basics",
+          "action": "Re-watch video sections explaining Django ORM Basics and review key mechanics.",
+          "priority": "High"
+        }
+      ]
+    },
+    "id": "b2dfe1bc",
+    "created_at": "2026-09-19T23:37:43.479265"
+  }
+]

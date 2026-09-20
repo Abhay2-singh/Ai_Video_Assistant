@@ -1,13 +1,25 @@
-import streamlit as st
+import os
 import time
+import streamlit as st
 from dotenv import load_dotenv
 from utils.audio_processor import process_input
 from core.transcriber import transcribe_all
 from core.summarizer import summarize, generate_title
 from core.extractor import extract_action_items, extract_key_decisions, extract_questions
 from core.rag_engine import build_rag_chain, ask_question
+from core.interviewer_ui import render_interviewer_interface
+from core.interview_storage import save_processed_video_record
 
 load_dotenv()
+# Bridge Streamlit Cloud Secrets to os.environ for Mistral API keys
+try:
+    if hasattr(st, "secrets"):
+        for key, val in st.secrets.items():
+            if isinstance(val, str) and key not in os.environ:
+                os.environ[key] = val
+except Exception:
+    pass
+
 
 # ─── Page Config ────────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -310,6 +322,7 @@ for key, default in {
     "processing": False,
     "pipeline_done": False,
     "pipeline_steps": {},
+    "nav_mode": "video_intelligence",
 }.items():
     if key not in st.session_state:
         st.session_state[key] = default
@@ -332,33 +345,61 @@ def render_step_bar(label: str, key: str, icon: str):
 # ─── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown('<div class="hero-title" style="font-size:1.6rem">🎬 AI<br>Video</div>', unsafe_allow_html=True)
-    st.markdown('<div class="hero-sub">Meeting Intelligence</div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero-sub">Meeting & Interview Intelligence</div>', unsafe_allow_html=True)
     st.markdown("---")
 
-    st.markdown('<span class="badge badge-purple">Input</span>', unsafe_allow_html=True)
-    source = st.text_input("YouTube URL or File Path", placeholder="https://youtube.com/watch?v=... or /path/to/file.mp4")
+    st.markdown('<span class="badge badge-cyan">Feature Mode</span>', unsafe_allow_html=True)
+    mode_options = ["🎬 Video Intelligence", "🎙️ AI Interviewer"]
+    curr_mode_idx = 0 if st.session_state.get("nav_mode", "video_intelligence") == "video_intelligence" else 1
+    selected_mode = st.radio("Navigation Mode", mode_options, index=curr_mode_idx, label_visibility="collapsed")
+    new_mode = "ai_interviewer" if "AI Interviewer" in selected_mode else "video_intelligence"
+    if new_mode != st.session_state.get("nav_mode"):
+        st.session_state.nav_mode = new_mode
+        st.rerun()
 
-    language = st.selectbox("Language", ["english", "hinglish"], index=0)
+    st.markdown("---")
 
-    run_btn = st.button("⚡  Analyse", use_container_width=True)
+    if st.session_state.nav_mode == "video_intelligence":
+        st.markdown('<span class="badge badge-purple">Input</span>', unsafe_allow_html=True)
+        source = st.text_input("YouTube URL or File Path", placeholder="https://youtube.com/watch?v=... or /path/to/file.mp4")
 
-    if st.session_state.pipeline_done:
-        st.markdown("---")
-        st.markdown('<span class="badge badge-green">Pipeline Status</span>', unsafe_allow_html=True)
-        for step, icon, label in [
-            ("audio",      "🔊", "Audio Processing"),
-            ("transcript", "📝", "Transcription"),
-            ("title",      "🏷️", "Title Generation"),
-            ("summary",    "📋", "Summarisation"),
-            ("extract",    "🔍", "Extraction"),
-            ("rag",        "🧠", "RAG Engine"),
-        ]:
-            render_step_bar(label, step, icon)
+        language = st.selectbox("Language", ["english", "hinglish"], index=0)
+
+        run_btn = st.button("⚡  Analyse", use_container_width=True)
+
+        if st.session_state.pipeline_done:
+            st.markdown("---")
+            st.markdown('<span class="badge badge-green">Pipeline Status</span>', unsafe_allow_html=True)
+            for step, icon, label in [
+                ("audio",      "🔊", "Audio Processing"),
+                ("transcript", "📝", "Transcription"),
+                ("title",      "🏷️", "Title Generation"),
+                ("summary",    "📋", "Summarisation"),
+                ("extract",    "🔍", "Extraction"),
+                ("rag",        "🧠", "RAG Engine"),
+            ]:
+                render_step_bar(label, step, icon)
+    else:
+        source = ""
+        run_btn = False
+        st.markdown('<span class="badge badge-purple">Interviewer Mode</span>', unsafe_allow_html=True)
+        st.markdown("""
+        <div style="font-size:0.8rem;color:var(--text-muted);line-height:1.6;margin-top:0.5rem">
+            Adaptive mock interview grounded in technical concepts extracted from your processed videos.
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("← Switch to Video Analysis", use_container_width=True):
+            st.session_state.nav_mode = "video_intelligence"
+            st.rerun()
 
 # ─── Main Area ──────────────────────────────────────────────────────────────────
-st.markdown('<div class="hero-title">AI Video Assistant</div>', unsafe_allow_html=True)
-st.markdown('<div class="hero-sub">Transcribe · Summarise · Chat with your meetings</div>', unsafe_allow_html=True)
-st.markdown("---")
+if st.session_state.get("nav_mode") == "ai_interviewer":
+    render_interviewer_interface()
+else:
+    st.markdown('<div class="hero-title">AI Video Assistant</div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero-sub">Transcribe · Summarise · Chat with your meetings</div>', unsafe_allow_html=True)
+    st.markdown("---")
 
 # ── Run Pipeline ────────────────────────────────────────────────────────────────
 if run_btn:
@@ -405,6 +446,13 @@ if run_btn:
             rag_chain = build_rag_chain(transcript)
             update_step("rag", "done")
 
+            saved_vid = save_processed_video_record(
+                title=title,
+                transcript=transcript,
+                summary=summary,
+                source=source
+            )
+
             st.session_state.result = {
                 "title": title,
                 "transcript": transcript,
@@ -413,6 +461,7 @@ if run_btn:
                 "key_decisions": decisions,
                 "open_questions": questions,
                 "rag_chain": rag_chain,
+                "video_id": saved_vid.get("id"),
             }
             st.session_state.pipeline_done = True
             progress_placeholder.success("✅ Analysis complete!")
@@ -430,14 +479,24 @@ if run_btn:
 if st.session_state.result:
     r = st.session_state.result
 
-    # Title banner
-    st.markdown(f"""
-    <div class="card">
-        <div class="card-title">📌 Session Title</div>
-        <div style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--text)">
-            {r['title']}
-        </div>
-    </div>""", unsafe_allow_html=True)
+    # Title banner + Interviewer quick-launch button
+    title_col, action_col = st.columns([3, 1], gap="medium")
+    with title_col:
+        st.markdown(f"""
+        <div class="card" style="margin-bottom:0">
+            <div class="card-title">📌 Session Title</div>
+            <div style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--text)">
+                {r['title']}
+            </div>
+        </div>""", unsafe_allow_html=True)
+    with action_col:
+        st.markdown("""<div style="height:10px"></div>""", unsafe_allow_html=True)
+        if st.button("🎙️ Practice Interview", use_container_width=True, help="Start an adaptive mock interview based on this video"):
+            st.session_state.nav_mode = "ai_interviewer"
+            st.session_state.selected_video_id = r.get("video_id")
+            st.session_state.interview_step = "setup"
+            st.rerun()
+    st.markdown("<br>", unsafe_allow_html=True)
 
     # Top row: summary + transcript
     col1, col2 = st.columns([3, 2], gap="medium")
