@@ -6,23 +6,80 @@ DOWNLOAD_DIR = 'downloades'
 os.makedirs(DOWNLOAD_DIR,exist_ok = True)
 
 def download_youtube_audio(url :str) ->str:
-    output_path = os.path.join(DOWNLOAD_DIR, "%(title)s.%(ext)s")
-    ydl_opts = {
-        "format": "bestaudio/best",
-        "outtmpl": output_path,
-        "postprocessors": [
-            {
-                "key": "FFmpegExtractAudio",
-                "preferredcodec": "wav",
-                "preferredquality": "192",
+    output_path = os.path.join(DOWNLOAD_DIR, "%(id)s_%(title).50s.%(ext)s")
+    
+    # Try different player client configurations if YouTube blocks (HTTP 403 Forbidden)
+    client_strategies = [
+        ["android", "mweb", "web"],
+        ["ios", "mweb"],
+        ["mweb"],
+        ["android"],
+    ]
+    
+    last_error = None
+    for clients in client_strategies:
+        try:
+            ydl_opts = {
+                "format": "bestaudio/best",
+                "outtmpl": output_path,
+                "postprocessors": [
+                    {
+                        "key": "FFmpegExtractAudio",
+                        "preferredcodec": "wav",
+                        "preferredquality": "192",
+                    }
+                ],
+                "quiet": True,
+                "no_warnings": True,
+                "nocheckcertificate": True,
+                "extractor_args": {
+                    "youtube": {
+                        "player_client": clients
+                    }
+                },
+                "http_headers": {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                    "Accept-Language": "en-US,en;q=0.5",
+                },
             }
-        ],
-        "quiet": True,
-    }
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(url, download=True)
-        filename = ydl.prepare_filename(info).replace(".webm", ".wav").replace(".m4a", ".wav")
-    return filename
+            
+            # Support cookie file or YOUTUBE_COOKIES secret if provided
+            cookie_path = os.path.join(os.getcwd(), "cookies.txt")
+            if os.path.exists(cookie_path):
+                ydl_opts["cookiefile"] = cookie_path
+            elif os.getenv("YOUTUBE_COOKIES"):
+                temp_cookie = os.path.join(DOWNLOAD_DIR, "temp_cookies.txt")
+                with open(temp_cookie, "w", encoding="utf-8") as f:
+                    f.write(os.getenv("YOUTUBE_COOKIES"))
+                ydl_opts["cookiefile"] = temp_cookie
+
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(url, download=True)
+                if not info:
+                    continue
+                prepared = ydl.prepare_filename(info)
+                base = os.path.splitext(prepared)[0]
+                wav_filename = f"{base}.wav"
+                
+                if os.path.exists(wav_filename):
+                    return wav_filename
+                
+                # Check if extracted file has another extension
+                for ext in [".wav", ".m4a", ".webm", ".opus", ".mp3", ".mp4"]:
+                    cand = f"{base}{ext}"
+                    if os.path.exists(cand):
+                        return cand if ext == ".wav" else convert_to_wav(cand)
+                
+                return wav_filename
+        except Exception as e:
+            last_error = e
+            continue
+            
+    raise RuntimeError(
+        f"Unable to download YouTube audio. YouTube blocked the request (HTTP 403 Forbidden). "
+        f"Details: {last_error}"
+    )
 
 
 

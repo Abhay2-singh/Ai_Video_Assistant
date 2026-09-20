@@ -361,7 +361,23 @@ with st.sidebar:
 
     if st.session_state.nav_mode == "video_intelligence":
         st.markdown('<span class="badge badge-purple">Input</span>', unsafe_allow_html=True)
-        source = st.text_input("YouTube URL or File Path", placeholder="https://youtube.com/watch?v=... or /path/to/file.mp4")
+        input_type = st.radio(
+            "Input Method",
+            ["YouTube URL", "Upload Video / Audio", "Local File Path"],
+            index=0,
+            horizontal=False
+        )
+        source = ""
+        uploaded_file = None
+        if input_type == "YouTube URL":
+            source = st.text_input("YouTube URL", placeholder="https://www.youtube.com/watch?v=...")
+        elif input_type == "Upload Video / Audio":
+            uploaded_file = st.file_uploader(
+                "Upload Media File",
+                type=["mp4", "mkv", "mov", "webm", "mp3", "wav", "m4a", "ogg"]
+            )
+        else:
+            source = st.text_input("Local File Path", placeholder="C:/path/to/meeting.mp4 or data/sample.wav")
 
         language = st.selectbox("Language", ["english", "hinglish"], index=0)
 
@@ -403,8 +419,21 @@ else:
 
 # ── Run Pipeline ────────────────────────────────────────────────────────────────
 if run_btn:
+    if input_type == "Upload Video / Audio":
+        if uploaded_file is None:
+            st.error("Please upload an audio or video file first.")
+            source = ""
+        else:
+            upload_dir = "downloades"
+            os.makedirs(upload_dir, exist_ok=True)
+            save_path = os.path.join(upload_dir, uploaded_file.name)
+            with open(save_path, "wb") as f:
+                f.write(uploaded_file.getbuffer())
+            source = save_path
+
     if not source.strip():
-        st.error("Please enter a YouTube URL or file path.")
+        if input_type != "Upload Video / Audio":
+            st.error("Please enter a valid YouTube URL or file path.")
     else:
         st.session_state.pipeline_done = False
         st.session_state.result = None
@@ -473,7 +502,14 @@ if run_btn:
             for k in ["audio","transcript","title","summary","extract","rag"]:
                 if st.session_state.pipeline_steps.get(k) == "active":
                     st.session_state.pipeline_steps[k] = "pending"
-            progress_placeholder.error(f"❌ Error: {e}")
+            err_msg = str(e)
+            if "403" in err_msg or "Forbidden" in err_msg:
+                progress_placeholder.error(
+                    "❌ **YouTube Error (HTTP 403: Forbidden)**: YouTube is blocking audio extraction from cloud IP addresses. "
+                    "**Solution**: Switch 'Input Method' in the sidebar to **Upload Video / Audio** to process your file directly without YouTube rate limits!"
+                )
+            else:
+                progress_placeholder.error(f"❌ Error: {e}")
 
 # ── Results ──────────────────────────────────────────────────────────────────────
 if st.session_state.result:
