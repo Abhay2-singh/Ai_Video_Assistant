@@ -398,11 +398,18 @@ with st.sidebar:
                 render_step_bar(label, step, icon)
     else:
         source = ""
-        run_btn = False
         st.markdown('<span class="badge badge-purple">Interviewer Mode</span>', unsafe_allow_html=True)
+        int_mode_options = ["📹 Video-Based Interview", "🎙️ Live AI Interview"]
+        cur_sub_idx = 0 if st.session_state.get("interview_submode", "video") == "video" else 1
+        sel_submode = st.radio("Interview Type", int_mode_options, index=cur_sub_idx)
+        new_sub = "live" if "Live" in sel_submode else "video"
+        if new_sub != st.session_state.get("interview_submode"):
+            st.session_state.interview_submode = new_sub
+            st.rerun()
+
         st.markdown("""
-        <div style="font-size:0.8rem;color:var(--text-muted);line-height:1.6;margin-top:0.5rem">
-            Adaptive mock interview grounded in technical concepts extracted from your processed videos.
+        <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.5;margin-top:0.4rem">
+            Choose between Video-grounded questions or Live voice & camera technical interview.
         </div>
         """, unsafe_allow_html=True)
         st.markdown("<br>", unsafe_allow_html=True)

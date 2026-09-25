@@ -7,8 +7,9 @@ pydub>=0.25.1                     # Audio file manipulation / format conversion
 audioop-lts; python_version >= '3.13' # Replaces audioop removed in Python 3.13+
 ffmpeg-python>=0.2.0              # FFmpeg bindings (FFmpeg binary must be installed separately)
 
-# ── Speech-to-Text (local Whisper) ────────────────────────────────────────────
-openai-whisper>=20231117          # OpenAI Whisper (runs locally)
+# ── Speech-to-Text & Text-to-Speech ──────────────────────────────────────────
+openai-whisper>=20231117          # OpenAI Whisper (runs locally for STT)
+gTTS>=2.5.0                       # Google Text-to-Speech (for AI interviewer voice)
 torch>=2.2.0                      # PyTorch backend for Whisper
 torchaudio>=2.2.0                 # Audio utilities for PyTorch
 

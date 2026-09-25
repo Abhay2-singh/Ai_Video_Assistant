@@ -17,12 +17,14 @@ from core.interview_storage import (
     get_past_interviews,
 )
 from core.vector_store import load_vector_store, build_vector_store
+from core.live_interviewer_ui import render_live_interviewer_interface
 
 
 def init_interview_state():
     """Ensure all required interview session state variables exist."""
     defaults = {
         "nav_mode": "video_intelligence",
+        "interview_submode": "video",  # 'video' or 'live'
         "selected_video_id": None,
         "interview_step": "setup",  # 'setup', 'question', 'evaluation', 'report', 'history'
         "interview_difficulty": "Intermediate",
@@ -48,6 +50,31 @@ def render_interviewer_interface():
 
     # Step routing
     step = st.session_state.get("interview_step", "setup")
+    if step == "history":
+        _render_history_screen()
+        return
+
+    # Dual Mode Selector Banner
+    col_mode1, col_mode2 = st.columns(2, gap="medium")
+    with col_mode1:
+        is_vid = st.session_state.get("interview_submode", "video") == "video"
+        if st.button("📹  Video-Based Interview", use_container_width=True, type="primary" if is_vid else "secondary"):
+            st.session_state.interview_submode = "video"
+            st.rerun()
+    with col_mode2:
+        is_live = st.session_state.get("interview_submode", "video") == "live"
+        if st.button("🎙️  Live AI Interview (Voice & Camera)", use_container_width=True, type="primary" if is_live else "secondary"):
+            st.session_state.interview_submode = "live"
+            st.rerun()
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # Route to Live AI Interview
+    if st.session_state.get("interview_submode", "video") == "live":
+        render_live_interviewer_interface()
+        return
+
+    # Route to Video-Based Interview
     if step == "setup":
         _render_setup_screen()
     elif step == "question":
@@ -56,8 +83,6 @@ def render_interviewer_interface():
         _render_evaluation_screen()
     elif step == "report":
         _render_report_screen()
-    elif step == "history":
-        _render_history_screen()
 
 
 # ─── Helper: Get Available Video Data ───────────────────────────────────────────
@@ -230,11 +255,13 @@ def _start_new_interview(video: dict, concepts: list, initial_difficulty: str):
     st.session_state.interview_user_answer = ""
 
     with st.spinner("Preparing RAG context and generating Question 1…"):
-        # Load or create vector store
-        try:
-            vector_store = load_vector_store()
-        except Exception:
+        # Ensure fresh vector store isolated to this specific video
+        if "interview_vector_store" not in st.session_state or st.session_state.get("interview_vector_store_video_id") != video.get("id"):
             vector_store = build_vector_store(video.get("transcript", ""))
+            st.session_state.interview_vector_store = vector_store
+            st.session_state.interview_vector_store_video_id = video.get("id")
+        else:
+            vector_store = st.session_state.interview_vector_store
 
         first_concept = concepts[0]
         context, ts_range, _ = get_grounded_context(
@@ -489,10 +516,13 @@ def _prepare_adaptive_next_question():
             current_difficulty=current_diff
         )
 
-        try:
-            vector_store = load_vector_store()
-        except Exception:
+        # Reuse cached vector store for this video
+        if "interview_vector_store" in st.session_state and st.session_state.get("interview_vector_store_video_id") == active_video.get("id"):
+            vector_store = st.session_state.interview_vector_store
+        else:
             vector_store = build_vector_store(active_video.get("transcript", ""))
+            st.session_state.interview_vector_store = vector_store
+            st.session_state.interview_vector_store_video_id = active_video.get("id")
 
         context, ts_range, _ = get_grounded_context(
             vector_store,
@@ -746,8 +776,14 @@ def _render_history_screen():
         return
 
     st.markdown("<br>", unsafe_allow_html=True)
-    for session in past:
+
+    # Filter tabs
+    tab_all, tab_vid, tab_live = st.tabs(["All Sessions", "📹 Video Interviews", "🎙️ Live AI Interviews"])
+
+    def _render_session_card(session):
         sid = session.get("id", "N/A")
+        is_live = session.get("interview_mode") == "live"
+        mode_badge = "<span class='badge badge-purple' style='margin-right:0.4rem'>🎙️ Live Voice</span>" if is_live else "<span class='badge badge-cyan' style='margin-right:0.4rem'>📹 Video Grounded</span>"
         v_title = session.get("video_title", "Untitled Session")
         created = session.get("created_at", "")[:16].replace("T", " ")
         rep = session.get("report", {})
@@ -764,6 +800,7 @@ def _render_history_screen():
             st.markdown(f"""
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
                 <div>
+                    <div style="margin-bottom:0.4rem">{mode_badge}</div>
                     <div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text)">
                         {v_title}
                     </div>
@@ -813,3 +850,23 @@ def _render_history_screen():
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
+
+    with tab_all:
+        for s in past:
+            _render_session_card(s)
+
+    with tab_vid:
+        vid_sessions = [s for s in past if s.get("interview_mode") != "live"]
+        if vid_sessions:
+            for s in vid_sessions:
+                _render_session_card(s)
+        else:
+            st.info("No video-based interview sessions found yet.")
+
+    with tab_live:
+        live_sessions = [s for s in past if s.get("interview_mode") == "live"]
+        if live_sessions:
+            for s in live_sessions:
+                _render_session_card(s)
+        else:
+            st.info("No live AI interview sessions found yet. Take a Live AI Interview to see your sessions here!")

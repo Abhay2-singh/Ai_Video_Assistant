@@ -82,17 +82,25 @@ Every dependency in this project was selected for distinct performance, privacy,
 - Every answer is grounded directly in the transcript using ChromaDB similarity search, minimizing hallucinations.
 - Query historical context, timestamps, or specific technical definitions without scanning through hours of video.
 
-### 3. Adaptive AI Mock Interviewer
-- **Automated Concept Extraction**: Scans the transcript to identify core technical concepts, definitions, and practical significance.
-- **Grounded Questioning**: Generates technical interview questions tied strictly to concepts present in the video.
+### 3. Adaptive AI Interviewer Suite (Dual Modes)
+The application includes two distinct, professional interview modes:
+
+#### Mode A: Video-Based Adaptive Interview
+- **Automated Concept Extraction**: Scans the video transcript to identify core technical concepts, definitions, and practical significance.
+- **Grounded Questioning**: Generates technical interview questions tied strictly to concepts present in the uploaded video.
 - **Dynamic Difficulty**: Choose from **Beginner**, **Intermediate**, or **Advanced**. The interviewer adapts subsequent questions dynamically based on the candidate's performance.
-- **Multi-Dimensional Evaluation**:
-  - Concept Understanding (0–100)
-  - Technical Accuracy (0–100)
-  - Clarity & Depth (0–100)
-  - Constructive feedback and a model reference answer
+- **Multi-Dimensional Evaluation**: Concept Understanding, Technical Accuracy, and Clarity & Depth.
 - **Final Performance Scorecard**: Provides an overall score, strengths, areas for improvement, and concept-by-concept analysis.
-- **Persistent History**: Saves past interview sessions in `data/interviews.json` for progress tracking over time.
+
+#### Mode B: Live AI Technical Interview (Voice & Camera)
+- **Domain & Topic Selection**: Interview on 16+ domains (Python, C++, Java, SQL, OOP, DBMS, Data Structures, Networks, OS, Web Dev, Django, Flask, AI/ML, RAG/GenAI, General Tech, or Custom Topics).
+- **Speech-to-Text (STT)**: Speak answers naturally using your microphone; audio is automatically transcribed locally via Whisper.
+- **Text-to-Speech (TTS)**: Hear questions spoken aloud by the AI interviewer.
+- **Dual-Studio UI**: Side-by-side interviewer and candidate panels with optional live camera mirror preview.
+- **Multi-Dimensional Scoring**: Evaluates Concept Understanding, Technical Accuracy, and Clarity & Depth (each 1–10).
+- **Adaptive Question Progression**: Dynamically generates follow-up, practical, or deeper conceptual questions based on live answers.
+- **Comprehensive Scorecard & Recommendations**: Personalized study recommendations, strength/weakness analysis, and score breakdown.
+- **Persistent History**: Saves all past sessions in `data/interview_history.json` with mode badges (`[📹 Video Grounded]` vs `[🎙️ Live Voice]`).
 
 ### 4. Multi-format Export (PDF & TXT)
 - Download structured meeting summaries, action items, or full transcripts as clean PDF documents or plain text files.
