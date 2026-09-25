@@ -206,7 +206,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Secondary button */
-.stButton > button[kind="secondary"] {
+.stButton > button[kind="secondary"],
+.stButton > button[data-testid="baseButton-secondary"] {
     background: var(--surface-2) !important;
     border: 1px solid var(--border) !important;
 }

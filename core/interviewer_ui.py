@@ -188,20 +188,24 @@ def _render_setup_screen():
 
     with col1:
         st.markdown('<div class="card-title">🎯 Starting Difficulty</div>', unsafe_allow_html=True)
+        diff_options = ["Beginner", "Intermediate", "Advanced"]
+        cur_diff = st.session_state.interview_difficulty
         difficulty = st.selectbox(
             "Initial Difficulty",
-            ["Beginner", "Intermediate", "Advanced"],
-            index=["Beginner", "Intermediate", "Advanced"].index(st.session_state.interview_difficulty),
+            diff_options,
+            index=diff_options.index(cur_diff) if cur_diff in diff_options else 1,
             help="The interview will adapt up or down from here based on your answers."
         )
         st.session_state.interview_difficulty = difficulty
 
     with col2:
         st.markdown('<div class="card-title">🔢 Interview Length</div>', unsafe_allow_html=True)
+        len_options = [3, 5, 8, 10]
+        cur_len = st.session_state.interview_target_questions
         q_count = st.selectbox(
             "Number of Questions",
-            [3, 5, 8, 10],
-            index=[3, 5, 8, 10].index(st.session_state.interview_target_questions)
+            len_options,
+            index=len_options.index(cur_len) if cur_len in len_options else 1
         )
         st.session_state.interview_target_questions = q_count
 
@@ -213,7 +217,7 @@ def _render_setup_screen():
             _start_new_interview(active_video, concepts, difficulty)
 
     with action_col2:
-        if st.button("📜 Past Interviews", use_container_width=True, kind="secondary"):
+        if st.button("📜 Past Interviews", use_container_width=True, type="secondary"):
             st.session_state.interview_step = "history"
             st.rerun()
 
@@ -325,7 +329,7 @@ def _render_question_screen():
     with btn_col1:
         submit_btn = st.button("⚡  Submit Answer", use_container_width=True)
     with btn_col2:
-        early_finish = st.button("⏹️ Finish Early", use_container_width=True, kind="secondary")
+        early_finish = st.button("⏹️ Finish Early", use_container_width=True, type="secondary")
 
     if early_finish:
         if history:
@@ -698,12 +702,12 @@ def _render_report_screen():
             st.rerun()
 
     with b_col2:
-        if st.button("📜  View Past Interviews", use_container_width=True, kind="secondary"):
+        if st.button("📜  View Past Interviews", use_container_width=True, type="secondary"):
             st.session_state.interview_step = "history"
             st.rerun()
 
     with b_col3:
-        if st.button("🎬  Video Intelligence", use_container_width=True, kind="secondary"):
+        if st.button("🎬  Video Intelligence", use_container_width=True, type="secondary"):
             st.session_state.nav_mode = "video_intelligence"
             st.rerun()
 
@@ -717,9 +721,15 @@ def _render_history_screen():
 
     past = get_past_interviews()
 
-    if st.button("← Back to Interview Setup", kind="secondary"):
-        st.session_state.interview_step = "setup"
-        st.rerun()
+    h_col1, h_col2 = st.columns([1, 1], gap="medium")
+    with h_col1:
+        if st.button("← Back to Interview Setup", use_container_width=True, type="secondary"):
+            st.session_state.interview_step = "setup"
+            st.rerun()
+    with h_col2:
+        if st.button("🎬 Go to Video Intelligence", use_container_width=True, type="secondary"):
+            st.session_state.nav_mode = "video_intelligence"
+            st.rerun()
 
     if not past:
         st.markdown("""
@@ -744,7 +754,11 @@ def _render_history_screen():
         score = rep.get("overall_score", 0.0)
         history = session.get("history", [])
 
-        score_color = "var(--success)" if score >= 7.5 else ("var(--warning)" if score >= 5 else "var(--danger)")
+        try:
+            score_num = float(score) if score is not None else 0.0
+        except (ValueError, TypeError):
+            score_num = 0.0
+        score_color = "var(--success)" if score_num >= 7.5 else ("var(--warning)" if score_num >= 5 else "var(--danger)")
 
         with st.expander(f"🎯 {v_title} — Score: {score}/10 ({created})", expanded=False):
             st.markdown(f"""
@@ -778,18 +792,24 @@ def _render_history_screen():
             for q_idx, item in enumerate(history):
                 ev = item.get("evaluation", {})
                 item_score = ev.get("score", 0)
+                try:
+                    s_num = float(item_score) if item_score is not None else 0.0
+                except (ValueError, TypeError):
+                    s_num = 0.0
+                item_color = "var(--success)" if s_num >= 7.5 else ("var(--warning)" if s_num >= 5 else "var(--danger)")
+
                 st.markdown(f"""
                 <div class="card" style="margin-bottom:0.75rem;padding:0.9rem">
                     <div style="display:flex;justify-content:space-between;margin-bottom:0.4rem">
-                        <strong style="font-size:0.85rem">Q{q_idx + 1}: {item.get('concept_name')}</strong>
-                        <span style="font-size:0.8rem;font-weight:700;color:{score_color}">{item_score}/10</span>
+                        <strong style="font-size:0.85rem">Q{q_idx + 1}: {item.get('concept_name', 'General')}</strong>
+                        <span style="font-size:0.8rem;font-weight:700;color:{item_color}">{item_score}/10</span>
                     </div>
-                    <div style="font-size:0.82rem;margin-bottom:0.5rem;color:var(--text)">{item.get('question')}</div>
+                    <div style="font-size:0.82rem;margin-bottom:0.5rem;color:var(--text)">{item.get('question', '')}</div>
                     <div style="font-size:0.78rem;color:var(--text-muted)">
-                        <strong>Answer:</strong> {item.get('user_answer')}
+                        <strong>Answer:</strong> {item.get('user_answer', '')}
                     </div>
                     <div style="font-size:0.78rem;color:var(--accent-glow);margin-top:0.3rem">
-                        <strong>Feedback:</strong> {ev.get('feedback_summary')}
+                        <strong>Feedback:</strong> {ev.get('feedback_summary', '')}
                     </div>
                 </div>
                 """, unsafe_allow_html=True)

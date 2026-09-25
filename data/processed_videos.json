@@ -70,7 +70,52 @@
     "source": "https://youtu.be/g-ZNUL96uMw?si=8HhMHtflH88buIFu",
     "transcript": "آجھम bahatkarange ek poppeler interview question ki jo hi programming interview me puchha ajata hai me baatkarange o object oriented programming ke 4 pillurts ki encapsulation, abstraction, polymorphism or inheritor hi, I am Nishadha and you are watching GeeksforGeeks you are one stop solution for all coding related problems all the concepts that I mentioned, it is a little technical but today we have learnt very simple and fun ways so let's start 1st we have in capsilation socho tahaarhe paa seks smartphone hai itske ender battery, processor, camera, storieth sabko chota leki ni saari tise dairi ki akssessibil naayu te hai tome ik app open karti aur ponos ke resources use kakeo se smoothli chalale te tome processor kaa internal working naayi dikna patta same tari ki se am in capsilation make data aur method ko ek object ke andar secure akte aur hame ske dairi taksis te bachte se limited aur nesissi tise x post kata hai jis ki user ko nero in capsilation na wakla bi ko ch esahi hoot hai te marpa seks object hoot hai jis medulated variable switches properties aur functions which is methods ko saat me rakha jata hai marga tahaarhe baireable aur function ko ek unit paa ban kar naa sa ki wo ek dosis te aalagalak oparate karsakhe ek example leki hai socho tahaarhe paa seks employe ka object hai employeke ke paa skoch properties salary over time aur rei firt tahaarhe paa seks method hai get wait jis in properties kaa use kaa kakeo tahaarhe salarye kaal ko late kara hai agar in capsilation nahi nauta to to me salarye calculate kaa naa ke leke aalagalak functions liknipar te aur to me rei code ki spikiti bhanjati likin aapjav ye sab ek object ke endangin capsilate hoge hai to me bes get wait function call kana hoge aur sabkham kuthi hoge hai ga hain rei kota snippet to do the same in capsilation se to me rakhoot easy readable aur maintainable hoge hain kiki hait cheese aapne ja ke peo organisatodhe aur to me rei functions ke paa skoom paramitazodhe next we have abstractions jo under the complex of the system and the outside is simple now when we talk about abstractions, an example is it so jo to me hain paa se kofi masheen hai tum kofi ka button press kati aur tumikofi masheen hai to me nei paata ki kofi masheen ke under kya salarye konsik hemikas use o rei, konsi wires kis ko kanektoe hai ye, konsa masheen ka paat kaa function kaa re to me ye sab nahi paata aur tumik paata chalna miniye to me bes kofi miliye abhi jo hidden complex cheeze goti hai to to me nei interaction ko simpel bhanati hai isse hum kye de hai abstractions ka matlab ho tha hai internal details ko hide ka nao use ko sirf important cheeze dhikha na programming may be same concept apply ho tha hai to me re objects ka under kuchh private properties aur methods ho tha hai jo bhaar accessible nahi ho tha hai tum sirf on methods ho properties ko dikto jo tum hare layer element ho tha for example lagit te mik bank account object banarye ho tum us account ka balance private trucks ho tha ki ko use indirectly access na kaya paa sirf ik method ho tha hai isse deposit kya se bid roads ki tru tum us e access kar paa ki se te mera code secure ho tha hai aur external impact kum ho tha hai ska yeh mahth hai ki tum nagar kisee bhi point kape na internal method ko change kaa to te mera overall program isse pek nahi hoka Next up we have inheritance code ko firse naa likna abam baat kata hai inheritance ki inheritance ka mahth hai ki se classia object ra ki se dhustru object se properties aur methods ko inherit ka naa tha ki tum is same chees baar baar naa liknai baathe so jo tum hare paa se kvahicle classia just me car aur bike dono ek taik ke bhai kula isse me common property hai just me feel or injab tum hai isse me car aur bike object banarye isse tum bhai kulaa sko inherit kaar sakti ho just me hare paa scar aur bike ki properties automatikli haja mahth lap tum bhai kulaa ska indr jo properties define kruke wo car aur bike ko automatikli mil zayn to tum hai hare baar speed aur fuel ko redefine kya nye ki zauravat naa liknai baathe ki kaafi aficient hai ki tum hare ko od mein ridden nancy kaum hodia hai agar tum hai kasi pehrin classi me saa vaikul me kui property change karniai to tum hai hare baar naa liknai baathe hai kasi pehrin classi kaum hodia tum hai kasi pehrin classi kaum hodia hai kasi pehrin classi kaum hodia hai kasi pehrin last up not least we have polymorphism which is same function in different forms abagaram polymorphism ki baat karein to poly ka mahthoday many and morphism ka mahthoday form so polymorphism ka mahthoday ue aik function ka multiputal forms mi kaam gaat naa mahthoday aikhi method ko khaafi tarikusai ue use kart socho tomyra paa seksh shape klaasai just make method hai draw abtum is draw method ko circle, triangle, square ke klasmei implement karsakyou aur haresh shape kaat na unique drawing logic mahthoday aikhi draw function ka kaam ala galak tariki ki sohso saktayai depending on what object it supply to ue polymorphism to maare ko kukku kaapikain aur flexible baathe ue switch kasiya afel statements ki zaurur tha te ne baathe aifel statements ki zaurur tha te ne baathe tum ek function call kartayak kise bhi object ko apne tadekisai render karsakte mahthoday aikhi line my saara kaam hojaa ka tu ye te object oriented programming ki char core concept in capsulation data aur method ko ek object me baan ka naa asa complexity kaam hojaa te astraction, internal details ko height kartayak siyf zaurur ii chi zethe khana inheritance core core use kana ta ki redundant core na likna paade tum aphism, ek function ko multiple forms me use kana ta ki wo concise or flexible ho ufst programming ko concise or efficient baan aati hai aur jabha baarhe proyzeks te kaam gatayu ye concept saap ko pohoa de sensil akte agad tum hi hai ye concept sa majne kliya aayate hai ye find this video of value to do drop a like, leave a comment for us and share this video with your friends who you think about finding this or value and also don't forget to press the bell icon so that you can come here and watch the video any time i update aur meniske structured core description may be deyedi hai you keep going, check that out also thank you so much and happy coding",
     "summary": "### **Final Professional Meeting Summary: Core Object-Oriented Programming (OOP) Concepts**\n\n#### **Key OOP Principles & Their Applications**\n- **Encapsulation**\n  - Bundles **data (properties)** and **methods** into a single object while restricting direct access to internal details.\n  - **Purpose**: Prevents unintended modifications, reduces redundancy, and improves code **readability/maintainability**.\n  - **Example**:\n    - A `BankAccount` object hides its `balance` but exposes controlled methods like `deposit()` and `withdraw()`.\n    - An `Employee` object encapsulates salary calculations (e.g., `getWait()`) to avoid exposing raw data.\n\n- **Abstraction**\n  - Simplifies complex systems by **hiding internal logic** and exposing only essential features.\n  - **Purpose**: Reduces cognitive load for users/developers by focusing on functionality rather than implementation.\n  - **Example**:\n    - A smartphone’s UI abstracts hardware (battery, processor) behind apps.\n    - A `CoffeeMachine` interface hides brewing mechanics, showing only buttons for operation.\n\n- **Inheritance**\n  - Promotes **code reuse** by allowing child classes to inherit properties/methods from a parent class.\n  - **Purpose**: Eliminates redundancy and enforces logical hierarchies.\n  - **Example**:\n    - A `Vehicle` parent class defines shared traits (e.g., `fuel`, `speed`), inherited by `Car` and `Bike` subclasses.\n\n- **Polymorphism**\n  - Enables **one method** to behave differently across objects based on their type.\n  - **Purpose**: Enhances flexibility, reduces repetitive `if-else` logic, and supports dynamic behavior.\n  - **Example**:\n    - A `draw()` method renders shapes (e.g., `Circle`, `Square`) uniquely without duplicating code.\n\n#### **Core Benefits of OOP**\n- **Efficiency**: Reuses code (inheritance) and minimizes redundancy.\n- **Maintainability**: Encapsulation isolates changes, reducing ripple effects.\n- **Scalability**: Polymorphism and abstraction adapt to evolving requirements.\n- **Clarity**: Abstracted interfaces simplify interactions (e.g., APIs, UI components).\n\n---\n#### **Additional Notes from Discussion**\n- **Call to Action**:\n  - Engage with content by **liking, commenting, sharing, and subscribing** (e.g., enabling notifications for updates).\n  - Access structured learning resources (e.g., course descriptions) for deeper exploration.\n- **Closing**: Encouragement to practice coding with enthusiasm (*\"Happy coding!\"*).",
-    "concepts": [],
+    "concepts": [
+      {
+        "name": "Encapsulation",
+        "difficulty": "Beginner",
+        "description": "Explains how to bundle data (attributes) and methods into a single unit (object) while restricting direct access to some components to maintain control and security.",
+        "keywords": [
+          "data hiding",
+          "object properties",
+          "method bundling"
+        ],
+        "id": "concept_1"
+      },
+      {
+        "name": "Abstraction",
+        "difficulty": "Beginner",
+        "description": "Describes hiding complex internal details and exposing only essential features to simplify interaction, using private properties/methods and public interfaces.",
+        "keywords": [
+          "hide complexity",
+          "public interface",
+          "internal details"
+        ],
+        "id": "concept_2"
+      },
+      {
+        "name": "Inheritance",
+        "difficulty": "Intermediate",
+        "description": "Explains how to reuse code by allowing a child class to inherit properties and methods from a parent class, avoiding redundant code and promoting modularity.",
+        "keywords": [
+          "code reuse",
+          "parent-child classes",
+          "shared properties"
+        ],
+        "id": "concept_3"
+      },
+      {
+        "name": "Polymorphism",
+        "difficulty": "Intermediate",
+        "description": "Shows how a single method (e.g., `draw()`) can behave differently based on the object type, enabling flexible and concise code execution.",
+        "keywords": [
+          "method overloading",
+          "runtime flexibility",
+          "single interface"
+        ],
+        "id": "concept_4"
+      }
+    ],
     "created_at": "2026-09-20T10:25:06.736836"
   },
   {
@@ -81,5 +126,126 @@
     "summary": "Here’s a **professional, consolidated meeting summary** combining the two summaries into a cohesive, polished bullet-point format:\n\n---\n\n### **Meeting Summary: Core Object-Oriented Programming (OOP) Concepts**\n\n#### **Objective**:\nTo explain foundational OOP principles that enhance code **modularity, reusability, and maintainability** by reducing redundancy and complexity.\n\n---\n\n#### **Key OOP Concepts & Examples**\n\n1. **Encapsulation**\n   - **Definition**: Bundles data (attributes) and methods (functions) into a single unit (class) while restricting direct access to internal details.\n   - **Purpose**: Protects data integrity and hides implementation complexity.\n   - **Example**:\n     - *Real-world*: A smartphone hides its battery/processor internals but exposes user-friendly apps.\n     - *Code*: An `Employee` class encapsulates `salary` and `overtime` properties, exposing only methods like `getWage()` to external code.\n   - **Benefits**:\n     - Cleaner, more organized code.\n     - Reduced risk of unintended modifications.\n\n2. **Abstraction**\n   - **Definition**: Focuses on *what* an object does (public interface) while hiding *how* it works (private details).\n   - **Purpose**: Simplifies interactions and improves security.\n   - **Example**:\n     - *Real-world*: A coffee machine’s user interface abstracts away its internal mechanics.\n     - *Code*: A `BankAccount` class exposes `deposit()`/`withdraw()` methods but hides the `balance` property.\n   - **Benefits**:\n     - Security (sensitive data is protected).\n     - Reduced external dependency on internal logic.\n\n3. **Inheritance**\n   - **Definition**: Allows a **child class** to inherit properties/methods from a **parent class**, promoting code reuse.\n   - **Purpose**: Eliminates duplication and enables hierarchical relationships.\n   - **Example**:\n     - *Code*: `Car` and `Bike` classes inherit common traits (e.g., `speed`, `fuel`) from a `Vehicle` base class.\n   - **Benefits**:\n     - Single source of truth (changes to the parent class propagate to children).\n     - Scalable architecture for large projects.\n\n4. **Polymorphism**\n   - **Definition**: Enables methods to behave differently based on the object type, even if they share the same name.\n   - **Purpose**: Avoids repetitive conditional logic (e.g., `switch-case`) and enhances flexibility.\n   - **Example**:\n     - *Code*: A `Shape` class’s `draw()` method renders differently for `Circle` vs. `Triangle` objects.\n   - **Benefits**:\n     - Concise, dynamic code.\n     - Easier extension (new shapes can reuse the same method interface).\n\n---\n#### **Core Takeaways**\n- **Modularity**: OOP breaks down systems into reusable, self-contained components.\n- **Efficiency**: Inheritance and polymorphism reduce redundancy and improve scalability.\n- **Maintainability**: Encapsulation and abstraction simplify updates and debugging.\n- **Best Practice**: Use OOP to design **scalable, secure, and efficient** software architectures.\n\n---\n#### **Action Items (if applicable)**\n*(Add if the meeting included next steps; otherwise, omit or replace with:)*\n- **Follow-up**: Review OOP principles in upcoming code reviews.\n- **Resources**: Share links to interactive OOP tutorials (e.g., [Java Inheritance Demo](link), [Python Polymorphism Guide](link)).\n\n---\n**Note**: Corrected typographical errors (e.g., \"Incaxulation\" → **Encapsulation**). Clarified examples for consistency.",
     "concepts": [],
     "created_at": "2026-09-20T10:40:17.133646"
+  },
+  {
+    "id": "f9f0e819",
+    "title": "**\"OOP Core Principles & Encapsulation Benefits\"**",
+    "source": "",
+    "transcript": "A popular interview question concerns the four core concepts in object-oriented programming. These concepts are encapsulation, abstraction, inheritance, and polymorphism. Let's look at each of these concepts. Before object-oriented programming, we had procedural programming that divided the program into a set of functions. So we have data stored in a bunch of variables and functions that operate on the data. This style of programming is very simple and straightforward. Often, it's what you will learn as part of your first programming subject at a university. But as your programs grow, you will end up with a bunch of functions that are all over the place. You might find yourself copying and pasting lines of code over and over. You make a change to one function and then several other functions break. That's what we call spaghetti code. There is so much interdependency between all these functions, it becomes problematic. Object-oriented programming came to solve this problem. In object-oriented programming, we combine a group of related variables and functions into a unit. We call that unit an object. We refer to these variables as properties and the functions as methods. Here is an example. Think of a car. A car is an object with properties such as make, model, and color, and methods like start, stop, and move. Now you might say, what much? We don't have cars in our programs. Give me a real programming example. OK, think of the local storage object in your browsers. Every browser has a local storage object that allows you to store data locally. This local storage object has a property, like length, which returns the number of objects in the storage and methods like set item and remove item. So in object-oriented programming, we group related variables and functions that operate on them into objects. This is what we call encapsulation. Let me show you an example of this in action. So here we have three variables, base salary, overtime, and rate. Below these we have a function to calculate the wage for an employee. We refer to this kind of implementation as procedural. So we have variables on one side and functions on the other side. They are decoupled. Now let's take a look at the object-oriented way to solve this problem. We can have an employee object with three properties, base salary, overtime, and rate, and a method called get wage. Now why is this better? Well, first of all, look at the get wage function. This function has no parameters. In contrast, in a procedural example, our get wage function has three parameters. The reason in this implementation we don't have any parameters is because all these parameters are actually modeled as properties of this object. All these properties and the get wage function are highly related so they are part of one unit. So one of the symptoms of procedural code is functions with so many parameters. When you rate code in object-oriented way, your functions end up having fewer and fewer parameters. As Uncle Bob says, the best functions are those with no parameters. The fewer the number of parameters, the easier it is to use and maintain that function. So that's encapsulation. Now let's look at abstraction. Think of a DVD player as an object. This DVD player has a complex logic board on the inside and a few buttons on the outside that you interact with. You simply press the play button and you don't care what happens on the inside. All that complexity is hidden from you. This is abstraction in practice. We can use the same technique in our objects. So we can hide some of the properties and methods from the outside and this gives us a couple of benefits. First is that we will make the interface of those objects simpler. Using an understanding an object with a few properties and methods is easier than an object with several properties and methods. The second benefit is that it helps us reduce the impact of change. Let's imagine that tomorrow we change these inner or private methods. None of these changes will leak to the outside because we don't have any code that touches these methods outside of their containing object. We may delete a method or change its parameters but none of these changes will impact the rest of the application's code. So with abstraction, we reduce the impact of change. Now the third core concept in object-oriented programming. Inheritance. Inheritance is a mechanism that allows you to eliminate redundant code. Here's an example. Think of HTML elements like text boxes, drop-down lists, checkboxes and so on. All these elements have a few things in common. They should have properties like hidden and inner HTML and methods like click and focus. Instead of redefining all these properties and methods for every type of HTML element, we can define them once in a generic object, call it HTML element and have other objects inherit these properties and methods. So inheritance helps us eliminate redundant code. And finally polymorphism. Poly means many, more means form. So polymorphism means many forms. In object-oriented programming, polymorphism is a technique that allows you to get rid of long e-fans or switch-and-case statements. So back to our HTML elements example, all these objects should have the ability to be rendered on a page. But the way each element is rendered is different from the others. If we want to render multiple HTML elements in a procedural way, our code would probably look like this. But with object orientation, we can implement a render method in each of these objects, and the render method will behave differently depending on the type of the object we are referencing. So we can get rid of this nasty switch-and-case and use one line of code like this. You will see that later in the course. So here are the benefits of object-oriented programming. Using encapsulation, we group related variables and functions together, and this way we can reduce complexity. Now we can reuse these objects in different parts of a program or in different programs. With abstraction, we hide the details and the complexity and show only the essentials. This technique reduces complexity and also isolates the impact of changes in the code. With inheritance, we can eliminate redundant code, and with polymorphism, we can refactor ugly switch-case statements. Well, hello, it's me, Masha again. I wanted to say thank you very much for watching this tutorial to the end. I hope you learned a lot. Please share and like this video to support me. If you want to learn more about object-oriented programming, as I told you before, I have a course called object-oriented programming in JavaScript. If you want to learn more, click on the link in the video description and enrol in the course. And if not, that's perfectly fine. Make sure to subscribe to my channel because I upload new videos every week. Thank you and have a great day!",
+    "summary": "### **Final Professional Meeting Summary: OOP vs. Procedural Programming & Core OOP Concepts**\n\n#### **Key Differences: OOP vs. Procedural Programming**\n- **Procedural Programming**:\n  - Separates data (variables) and logic (functions), leading to **\"spaghetti code\"**—high interdependency, code duplication, and fragility when changes are made.\n- **Object-Oriented Programming (OOP)**:\n  - Bundles related **data (properties)** and **functions (methods)** into **objects**, reducing complexity and improving modularity.\n  - Example: A `Car` object encapsulates properties (*make*, *color*) and methods (*start*, *brake*).\n\n---\n\n#### **Core OOP Concepts & Benefits**\n1. **Encapsulation**\n   - Groups related data and methods into a single **object**, hiding internal complexity.\n   - **Procedural vs. OOP Example**:\n     - Procedural: Decoupled variables (`baseSalary`, `overtime`) passed as parameters to `calculateWage()`.\n     - OOP: Encapsulates logic into an `Employee` object with properties (`baseSalary`, `overtime`) and a method (`getWage()`), eliminating redundant parameters.\n   - **Key Benefit**: Reduces function parameters (ideal: zero parameters), improving maintainability and cohesion.\n\n2. **Abstraction**\n   - Simplifies interfaces by exposing **only essential properties/methods** while hiding internal details.\n   - **Example**: A DVD player’s buttons (e.g., *play*, *pause*) abstract away complex internal logic.\n   - **Impact**: Internal changes (e.g., rewiring) don’t affect external code, reducing risk.\n\n3. **Inheritance**\n   - Promotes **code reuse** by allowing classes to inherit shared properties/methods from parent classes.\n   - **Example**: HTML elements (e.g., `<div>`, `<button>`) inherit common methods like `hidden` or `click` from the base `HTMLElement`.\n   - **Key Benefit**: Eliminates redundant code, ensuring consistency across related objects.\n\n4. **Polymorphism**\n   - Enables **\"many forms\"** via method overriding—subclasses provide unique implementations of inherited methods.\n   - **Example**:\n     - Procedural: Verbose `switch-case` logic to handle different element types.\n     - OOP: A single `element.render()` call behaves differently for each object type (e.g., `div.render()` vs. `button.render()`).\n   - **Key Benefit**: Replaces complex conditional logic with cleaner, reusable code.\n\n---\n#### **Real-World Analogies**\n- **Browser’s `localStorage` Object**:\n  - Demonstrates **encapsulation** with properties (*length*) and methods (*setItem*, *getItem*).\n- **HTML Elements**:\n  - Showcase **inheritance** (shared methods) and **polymorphism** (unique method behaviors).\n\n---\n#### **Why OOP Matters**\n- **Reduces Complexity**: Objects model real-world entities, making code more intuitive.\n- **Improves Maintainability**: Changes are localized to specific objects, minimizing ripple effects.\n- **Enhances Reusability**: Inheritance and polymorphism promote DRY (Don’t Repeat Yourself) principles.\n- **Future-Proofing**: Abstraction isolates internal changes, protecting dependent code.\n\n---\n#### **Call to Action**\n- The speaker encourages further learning via a **course on OOP in JavaScript**.\n- Invites audience to **subscribe** for more technical insights and updates.\n\n---\n**Final Note**: OOP transforms code from procedural \"spaghetti\" into structured, modular, and scalable objects, aligning better with real-world problem-solving.",
+    "concepts": [
+      {
+        "name": "Encapsulation",
+        "difficulty": "Beginner",
+        "description": "Combining related variables (properties) and functions (methods) into a single unit (object) to reduce complexity and interdependency, often resulting in fewer parameters in functions.",
+        "keywords": [
+          "object-oriented programming",
+          "data hiding",
+          "bundling properties and methods"
+        ],
+        "id": "concept_1"
+      },
+      {
+        "name": "Abstraction",
+        "difficulty": "Beginner",
+        "description": "Hiding internal complexity and exposing only essential features or methods to simplify interaction, reducing the impact of internal changes on external code.",
+        "keywords": [
+          "hiding complexity",
+          "simplified interface",
+          "reducing change impact"
+        ],
+        "id": "concept_2"
+      },
+      {
+        "name": "Inheritance",
+        "difficulty": "Intermediate",
+        "description": "A mechanism to reuse and extend code by allowing a new class (child) to inherit properties and methods from an existing class (parent), eliminating redundant code.",
+        "keywords": [
+          "code reuse",
+          "parent-child classes",
+          "eliminating redundancy"
+        ],
+        "id": "concept_3"
+      },
+      {
+        "name": "Polymorphism",
+        "difficulty": "Intermediate",
+        "description": "Enabling objects of different classes to be treated as objects of a common superclass, allowing flexible and dynamic method execution (e.g., rendering HTML elements differently without switch-case statements).",
+        "keywords": [
+          "many forms",
+          "method overriding",
+          "dynamic method binding"
+        ],
+        "id": "concept_4"
+      },
+      {
+        "name": "Procedural vs. Object-Oriented Programming",
+        "difficulty": "Beginner",
+        "description": "Contrasting procedural programming (functions operating on decoupled data) with object-oriented programming (data and functions bundled into objects), highlighting issues like spaghetti code and benefits like modularity.",
+        "keywords": [
+          "spaghetti code",
+          "decoupled functions",
+          "modularity in OOP"
+        ],
+        "id": "concept_5"
+      }
+    ],
+    "created_at": "2026-09-21T00:50:29.815131",
+    "updated_at": "2026-09-21T00:55:16.023860"
+  },
+  {
+    "id": "6157a036",
+    "title": "**\"Movie Theater Checkout Process & Seating Selection\"**",
+    "source": "",
+    "transcript": "Hey everyone, welcome to another Speak English with me video. In this video you will practice you're speaking with me. And as usual we will have a dialogue where one line will be mine and the next one will be yours. I'm going to say my line and then you will read your line out loud from the screen as if you were answering me and then vice versa. This is a very convenient and effective way to improve your speaking skills in English by yourself. Today's dialogue takes place in a movie theater. First we will listen to the full dialogue so that you know how to pronounce certain words and then we'll move to the practicing part. Okay, let's go. Hi, how are you doing? Welcome to AMC. Hi, how are you? Are you paying cash or card? Card. Are you a member? No, I'm not. Okay, what would you like to watch tonight? Two adults and one child for plus and boots please. Awesome. Could you choose your seats on the screen please? Sure. Wow, it's packed. Oh yeah, it usually gets pretty crowded in winter plus it's a federal holiday. Well, that makes sense. Not everyone likes the cold weather and winter outdoor activities. That's right. Okay, your total will be $28. All right, there you go. Thank you. It's theater number five to your right. Enjoy the movie. Thank you so much. Have a good one. Now let's practice. I will go first. Hi, how are you doing? Welcome to AMC. Are you paying cash or card? Are you a member? Okay, what would you like to watch tonight? Awesome. Could you choose your seats on the screen please? Oh yeah, it usually gets pretty crowded in winter plus it's a federal holiday. That's right. Okay, your total will be $28. Thank you. It's theater number five to your right. Enjoy the movie. Okay, amazing job everyone. Now we switch. You go first. Hi, how are you? Hi. Card. No, I'm not. Two adults and one child for plus and boots please. Sure, wow, it's packed. Well, that makes sense. Not everyone likes the cold weather and winter outdoor activities. All right, there you go. Thank you so much. Have a good one. Okay, guys, great job. I hope you enjoyed practicing your speaking skills with me and I hope this video was effective and beneficial for you. And if you haven't subscribed yet, please subscribe. Give this video a like and I'll see you in the next one.",
+    "summary": "Here’s a polished, professional meeting summary in bullet points:\n\n### **Meeting Summary: English Speaking Skills Workshop – Dialogue Exercise**\n**Objective:**\n- Develop **fluency and confidence** in real-life English conversations through structured practice.\n\n**Key Components:**\n- **Interactive Format:**\n  - Alternates between **instructor prompts** and **learner responses** to encourage active participation.\n  - Starts with a **full dialogue playback** for pronunciation and context reference.\n- **Practice & Feedback Loop:**\n  - Learners engage in **dialogue repetition** based on the provided example.\n  - Instructor provides **constructive feedback** to refine delivery and comprehension.\n- **Thematic Setting:**\n  - Exercise takes place in a **movie theater environment**, simulating natural conversation scenarios.\n\n**Outcomes & Next Steps:**\n- **Skill Development:** Strengthens **pronunciation, fluency, and conversational confidence**.\n- **Engagement Call-to-Action:**\n  - Encourages viewers to **subscribe, like, and stay tuned** for future lessons.\n- **Scalability:** Designed as a **self-practice tool** for independent learners or supplementary classroom use.\n\n**Action Items:**\n- [ ] Pilot the dialogue exercise with a test group to assess effectiveness.\n- [ ] Create additional themed dialogues (e.g., restaurants, workplaces) for varied practice.\n- [ ] Share feedback loop strategies (e.g., peer review, AI tools) to enhance learning outcomes.",
+    "concepts": [
+      {
+        "name": "Practice Speaking Through Dialogue Role-Play",
+        "difficulty": "Beginner",
+        "description": "The video demonstrates a structured method of improving English speaking by taking turns in a simulated conversation, mimicking real-life interactions.",
+        "keywords": [
+          "dialogue practice",
+          "role-play speaking",
+          "English conversation drills"
+        ],
+        "id": "concept_1"
+      },
+      {
+        "name": "Basic Movie Theater Transaction Vocabulary",
+        "difficulty": "Beginner",
+        "description": "Covers essential phrases and terms used in a movie theater setting, such as payment methods, membership inquiries, and ticket selection.",
+        "keywords": [
+          "movie theater phrases",
+          "ticket purchase vocabulary",
+          "transactional English"
+        ],
+        "id": "concept_2"
+      },
+      {
+        "name": "Contextualizing Common Reasons for Crowds",
+        "difficulty": "Beginner",
+        "description": "Explains how to discuss common reasons for crowded venues (e.g., weather, holidays) in a natural, conversational way.",
+        "keywords": [
+          "crowd reasons in English",
+          "holiday weather conversation",
+          "contextual explanations"
+        ],
+        "id": "concept_3"
+      },
+      {
+        "name": "Pronunciation Practice Through Dialogue",
+        "difficulty": "Beginner",
+        "description": "Encourages learners to focus on pronunciation by listening to the full dialogue first before repeating lines aloud.",
+        "keywords": [
+          "pronunciation through repetition",
+          "dialogue-based speaking practice",
+          "listening-and-speaking drills"
+        ],
+        "id": "concept_4"
+      }
+    ],
+    "created_at": "2026-09-25T11:48:22.238768",
+    "updated_at": "2026-09-25T11:55:48.702791"
   }
 ]
